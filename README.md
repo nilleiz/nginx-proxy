@@ -102,6 +102,7 @@ By default, docker uses IPv6-to-IPv4 NAT. This means all client connections from
 
 If you need to support multiple virtual hosts for a container, you can separate each entry with commas.  For example, `foo.bar.com,baz.bar.com,bar.com` and each host will be setup the same.
 
+
 ### Virtual Ports
 
 When your container exposes only one port, nginx-proxy will default to this port, else to port 80.
@@ -112,6 +113,10 @@ For each host defined into `VIRTUAL_HOST`, the associated virtual port is retrie
 1. From the `VIRTUAL_PORT` environment variable
 1. From the container's exposed port if there is only one
 1. From the default port 80 when none of the above methods apply
+### Manually Specifying Upstream IP
+
+In case you need to manually override the Upstream IP that Nginx will proxy to, you can declare a VIRTUAL_IP env var. If you do this, you also need to declare the VIRTUAL_PORT env variable as this switches the behaviour to a more "manual" declaration style. This is useful if one of your containers is in `network_mode: host` for instance.
+
 
 ### Wildcard Hosts
 
